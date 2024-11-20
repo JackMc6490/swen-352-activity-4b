@@ -1,56 +1,40 @@
 package edu.rit.swen253.page.halappnav;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 
 import edu.rit.swen253.utils.DomElement;
 
 public class TestfulHoursAndLocationsPage extends SimpleHoursAndLocationsPage {
-    By DINING_TAB = By.id("dining");
-    By DINING_SATURDAY_TAB = By.id("dining-saturday");
-    By BEANZ_ACCORDION = By.id("beanz-accordion");
-    By BEANZ_HOURS = By.id("beanz-hours");
-    By LABS_TAB = By.id("labs");
-    By LABS_SATURDAY_TAB = By.id("labs-saturday");
-    By LABS_FILTER_PRINTER = By.id("labs-filter-printer");
-    By LABS_LOCATIONS_SHOWN = By.id("labs-locations-shown");
-    By _3D_WORLD_ACCORDION = By.id("3d-world-accordion");
-    By _3D_WORLD_DESCRIPTION = By.id("3d-world-description");
-    By _3D_WORLD_PRINTER_ICON = By.id("3d-world-printer-icon");
-    By _3D_WORLD_SOFTWARE_TAB = By.id("3d-world-software");
-    By _3D_WORLD_SOFTWARE_SEARCH = By.id("3d-world-software-search");
-    By _3D_WORLD_SOFTWARE_LIST = By.id("3d-world-software-list");
-    By AFFAIRS_TAB = By.id("affairs");
-    By AFFAIRS_LOCATIONS_SHOWN = By.id("affairs-locations-shown");
-    
-    DomElement diningServicesTab = findOnPage(DINING_TAB);
-    DomElement diningSaturdayTab = findOnPage(DINING_SATURDAY_TAB);
-    DomElement beanzAccordion = findOnPage(BEANZ_ACCORDION);
-    DomElement beanzHours = findOnPage(BEANZ_HOURS);
-    DomElement labsTab = findOnPage(LABS_TAB);
-    DomElement labsSaturdayTab = findOnPage(LABS_SATURDAY_TAB);
-    DomElement labsFilterPrinter = findOnPage(LABS_FILTER_PRINTER);
-    DomElement labsLocationsShown = findOnPage(LABS_LOCATIONS_SHOWN);
-    DomElement _3dWorldAccordion = findOnPage(_3D_WORLD_ACCORDION);
-    DomElement _3dWorldDescription = findOnPage(_3D_WORLD_DESCRIPTION);
-    DomElement _3dWorldPrinterIcon = findOnPage(_3D_WORLD_PRINTER_ICON);
-    DomElement _3dWorldSoftwareTab = findOnPage(_3D_WORLD_SOFTWARE_TAB);
-    DomElement _3dWorldSoftwareSearch = findOnPage(_3D_WORLD_SOFTWARE_SEARCH);
-    DomElement _3dWorldSoftwareList = findOnPage(_3D_WORLD_SOFTWARE_LIST);
-    DomElement affairsTab = findOnPage(AFFAIRS_TAB);
-    DomElement affairsLocationsShown = findOnPage(AFFAIRS_LOCATIONS_SHOWN);
+    // Locators
+    private By DINING_TAB = By.xpath("//div[@role='tab']//h4[text()='Dining Services']/ancestor::div[@role='tab']");
+    private By DINING_DAY_TABS = By.cssSelector("span.diningTabDateText");
+    private By BEANZ_ACCORDION = By.xpath("//span[text()='Beanz']/ancestor::div[contains(@class, 'col-xs-12')]");
+    private By BEANZ_HOURS = By.xpath(
+            "//div[@class='diningTabEateryName']/span[text()='Beanz']/ancestor::div[@class='col-xs-12']/span[@class='greenText']");
+    private By LABS_TAB = By.xpath("//div[@role='tab']//h4[text()='Computer Labs']/ancestor::div[@role='tab']");
+    private By LABS_FILTER_PRINTER = By
+            .xpath("//span[text()='Printer']/ancestor::mat-checkbox//input[@type='checkbox']");
+    private By LABS_LOCATIONS_SHOWN = By.cssSelector("span.student-labsTabLocationsShownText");
+    private By _3D_WORLD_ACCORDION = By
+            .xpath("//div[@class='labsTabEateryName']/span[text()='3D World']/ancestor::div[@class='clickHelper']");
+    private By _3D_WORLD_DESCRIPTION = By.xpath(
+            "//span[text()='3D World']/ancestor::div[contains(@class, 'clickHelper')]/following-sibling::div//p[contains(text(), 'A Macintosh and Windows computer lab')]");
+    private By _3D_WORLD_PRINTER_ICON = By.xpath(
+            "//span[text()='3D World']/ancestor::div[contains(@class, 'clickHelper')]//img[contains(@src, 'printer_orange.svg')]");
+    private By _3D_WORLD_SOFTWARE_TAB = By.xpath(
+            "//span[text()='3D World']/ancestor::div[contains(@class, 'clickHelper')]/following-sibling::div//mat-tab-header//div[contains(@class, 'mat-tab-label-content') and text()='Software']");
+    private By _3D_WORLD_SOFTWARE_SEARCH = By.xpath(
+            "//span[text()='3D World']/ancestor::div[contains(@class, 'clickHelper')]/following-sibling::div//input[contains(@name, 'labsTabSearch')]");
+    private By _3D_WORLD_SOFTWARE_LIST = By.xpath(
+            "//span[text()='3D World']/ancestor::div[contains(@class, 'clickHelper')]/following-sibling::div//mat-tab-body[@id='mat-tab-content-35-1']//div[@class='software-list-class']");
+    private By AFFAIRS_TAB = By.xpath("//div[@role='tab']//h4[text()='Student Affairs']/ancestor::div[@role='tab']");
+    private By AFFAIRS_LOCATIONS_SHOWN = By.cssSelector("span.student-affairsTabLocationsShownText");
 
+    // Constructor
     public TestfulHoursAndLocationsPage() {
         super();
-    }
-
-    public enum HALDateTab {
-        MON,
-        TUE,
-        WED,
-        THU,
-        FRI,
-        SAT,
-        SUN;
     }
 
     public enum HALMainTab {
@@ -59,72 +43,84 @@ public class TestfulHoursAndLocationsPage extends SimpleHoursAndLocationsPage {
         AFFAIRS;
     }
 
+    // Main Tab Switch
     public void switchMainTab(HALMainTab mainTab) {
         switch (mainTab) {
             case DINING:
-                diningServicesTab.click();
+                findOnPage(DINING_TAB).click();
                 break;
             case LABS:
-                labsTab.click();
+                findOnPage(LABS_TAB).click();
                 break;
             case AFFAIRS:
-                affairsTab.click();
+                findOnPage(AFFAIRS_TAB).click();
                 break;
         }
     }
 
-    public void switchDateTab(HALDateTab dateTab) {
-        switch (dateTab) {
-            case MON:
-                break;
-            case TUE:
-                break;
-            case WED:
-                break;
-            case THU:
-                break;
-            case FRI:
-                break;
-            case SAT:
-                // lets hope this isn't tested on any other day
-                // okay i thought I was being clever with the 
-                // enums but I'm not sure how to test this
-                diningSaturdayTab.click();
-                labsSaturdayTab.click();
-                break;
-            case SUN:
-                break;
+    public void switchDateTab(Integer tabIndex) {
+        // Find all the date tabs
+        List<DomElement> dateTabs = findAllOnPage(DINING_DAY_TABS);
+
+        // Ensure the tab index is within range
+        if (tabIndex >= 0 && tabIndex < dateTabs.size()) {
+            // Click on the tab at the specified index
+            dateTabs.get(tabIndex).click();
         }
     }
 
+    // Beanz Interaction
     public void clickOnBeanz() {
-        beanzAccordion.click();
+        findOnPage(BEANZ_ACCORDION).click();
     }
 
-    public void filterLabsByPrinter(){
-        labsFilterPrinter.click();
+    public String getBeanzHours() {
+        DomElement hours = findOnPage(BEANZ_HOURS);
+        return hours.getText();
+    }
+
+    // Labs Interaction
+    public void getLabsLocationsShown() {
+        findOnPage(LABS_LOCATIONS_SHOWN).getText();
+    }
+
+    public void filterLabsByPrinter() {
+        findOnPage(LABS_FILTER_PRINTER).click();
     }
 
     public void clickOn3DWorld() {
-        _3dWorldAccordion.click();
+        findOnPage(_3D_WORLD_ACCORDION).click();
+    }
+
+    public void is3DWorldPrinterIconIlluminated() {
+        findOnPage(_3D_WORLD_PRINTER_ICON);
+    }
+
+    public String get3DWorldDescription() {
+        return findOnPage(_3D_WORLD_DESCRIPTION).getText();
     }
 
     public void clickOn3DWorldSoftwareTab() {
-        _3dWorldSoftwareTab.click();
+        findOnPage(_3D_WORLD_SOFTWARE_TAB).click();
     }
 
     public void clickOn3DWorldSoftwareTabSearchBar() {
-        _3dWorldSoftwareSearch.click();
+        findOnPage(_3D_WORLD_SOFTWARE_SEARCH).click();
     }
 
     public void search3DWorldSoftwareTab(String software) {
-        _3dWorldSoftwareSearch.enterText(software);
+        DomElement searchBar = findOnPage(_3D_WORLD_SOFTWARE_SEARCH);
+        searchBar.click();
+        searchBar.enterText(software);
     }
 
+    public String get3DWorldSoftwareList() {
+        return findOnPage(_3D_WORLD_SOFTWARE_LIST).getText();
+    }
 
-
-
-
-
+    // Affairs Interaction
+    public String getAffairsLocationsShown() {
+        return findOnPage(AFFAIRS_LOCATIONS_SHOWN).getText();
+    }
 
 }
