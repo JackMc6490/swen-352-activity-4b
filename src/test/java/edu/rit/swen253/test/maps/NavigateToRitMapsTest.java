@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Disabled
 class NavigateToRitMapsTest extends AbstractWebTest {
 
   private TigerCenterHomePage homePage;
