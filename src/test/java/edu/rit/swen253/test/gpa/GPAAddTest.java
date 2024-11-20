@@ -1,6 +1,7 @@
 package edu.rit.swen253.test.gpa;
 
 
+
 import static edu.rit.swen253.utils.TimingUtils.sleep;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,20 +64,24 @@ public class GPAAddTest extends AbstractWebTest{
         secondCourse.setName("SWEN-352");
         secondCourse.setCredits("3");
         secondCourse.setGrade("C-");
+        secondCourse.setPastGrade("D+");
         assertAll("group assertions"
         , () -> assertEquals("SWEN-352",secondCourse.getName())
         , () -> assertEquals("3",secondCourse.getCredits())
         , () -> assertEquals("8: 1.67", secondCourse.getGrade())
+        , () -> assertEquals("9: 1.33", secondCourse.getPastGrade())
       );
     }
 
     @Test
     @Order(5)
-    void totalCourses(){
+    void threeTotalCourses(){
         calcPage.add();
         List<GPACourseView> courses = this.calcPage.getCourses();
         assertEquals(3, courses.size()/2);
     }
+
+
 
 
 
