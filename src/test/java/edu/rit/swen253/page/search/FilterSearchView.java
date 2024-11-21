@@ -20,15 +20,18 @@ public class FilterSearchView {
     }
 
     public void selectOpen() {
-        element.findChildBy(By.id("mat-checkbox-44")).click();
+        element.findChildBy(By.xpath("/html/body/div[1]/app-root/div[2]/mat-sidenav-container[2]/mat-sidenav-content/div[2]/class-search/div/div[2]/div[4]/div[3]/div/form/div[1]/div[2]/div[2]/mat-checkbox[1]/label/span[1]"))
+            .click();
     }
-
+    
     public void selectUndergrad() {
-        element.findChildBy(By.id("mat-checkbox-55")).click();
+        element.findChildBy(By.xpath("/html/body/div[1]/app-root/div[2]/mat-sidenav-container[2]/mat-sidenav-content/div[2]/class-search/div/div[2]/div[4]/div[3]/div/form/div[2]/div[3]/div[1]/mat-checkbox[1]/label/span[1]"))
+            .click();
     }
     
     public void selectGrad() {
-        element.findChildBy(By.id("mat-checkbox-56")).click();
+        element.findChildBy(By.xpath("/html/body/div[1]/app-root/div[2]/mat-sidenav-container[2]/mat-sidenav-content/div[2]/class-search/div/div[2]/div[4]/div[3]/div/form/div[2]/div[3]/div[1]/mat-checkbox[2]/label/span[1]"))
+            .click();
     }
 
 }
