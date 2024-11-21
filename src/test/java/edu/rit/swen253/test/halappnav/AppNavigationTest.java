@@ -16,40 +16,37 @@ import edu.rit.swen253.utils.BrowserWindow;
 public class AppNavigationTest extends AbstractWebTest {
     private SimpleHoursAndLocationsPage halPage;
     private BrowserWindow<SimpleHoursAndLocationsPage> halWindow;
-
+    void navHome(){
+        halPage = navigateToPage("https://tigercenter.rit.edu/tigerCenterApp/api/hours-and-locations",
+                SimpleHoursAndLocationsPage::new);
+        halWindow = getCurrentWindow();
+        
+    }
     @Test
     @Order(1)
     @DisplayName("First, navigate to the Tiger Center Hours and Locations page.")
     void navigateToHalPage() {
-        halPage = navigateToPage("https://tigercenter.rit.edu/tigerCenterApp/api/hours-and-locations",
-                SimpleHoursAndLocationsPage::new);
+        navHome();
         assertNotNull(halPage);
-        halWindow = getCurrentWindow();
+        
     }
 
     @Test
     @Order(2)
     @DisplayName("Second, click on the TopBar < Feedback button and validate navigation.")
-    void navigateToMaps() {
+    void navigateToFeedback() {
         halPage.clickOnTopNav(SimpleHoursAndLocationsPage.HALTopNav.FEEDBACK);
-        final SimplePage feedbackPage = assertNewWindowAndSwitch(SimplePage::new);
+        final SimplePage feedbackPage = assertNewPage(SimplePage::new);
         // there's a timing issue with Firefox (give it a second to render)
         if (onBrowser(FIREFOX)) {
             sleep(1);
         }
 
         assertTrue(feedbackPage.getURL().startsWith("https://help.rit.edu/"));
+        navHome();
     }
     @Test
     @Order(3)
-    @DisplayName("Go back to the HAL page.")
-    void switchToApp() {
-      assertNotSame(halPage, getCurrentWindow().page(), "Before switch");
-      switchToWindow(halWindow);
-      assertSame(halPage, getCurrentWindow().page(), "After switch");
-    }
-    @Test
-    @Order(4)
     @DisplayName("Click on TopBar < Support button and validate navigation.")
     void navigateToSupport() {
         halPage.clickOnTopNav(SimpleHoursAndLocationsPage.HALTopNav.SUPPORT);
@@ -59,21 +56,14 @@ public class AppNavigationTest extends AbstractWebTest {
         if (onBrowser(FIREFOX)) {
             sleep(1);
         }
-
+        System.out.println(supportPage.getURL());
         assertTrue(supportPage.getURL().startsWith("https://help.rit.edu/"));
+        switchToWindow(halWindow);
     }
 
-    @Test
-    @Order(5)
-    @DisplayName("Go back to the HAL page.")
-    void switchToApp2() {
-      assertNotSame(halPage, getCurrentWindow().page(), "Before switch");
-      switchToWindow(halWindow);
-      assertSame(halPage, getCurrentWindow().page(), "After switch");
-    }
 
     @Test
-    @Order(6)
+    @Order(4)
     @DisplayName("Click on TopBar < Directory button and validate navigation.")
     void navigateToDirectory() {
         halPage.clickOnTopNav(SimpleHoursAndLocationsPage.HALTopNav.DIRECTORY);
@@ -83,21 +73,14 @@ public class AppNavigationTest extends AbstractWebTest {
         if (onBrowser(FIREFOX)) {
             sleep(1);
         }
-
+        System.out.println(directoryPage.getURL());
         assertTrue(directoryPage.getURL().startsWith("https://www.rit.edu/directory"));
+        switchToWindow(halWindow);
     }
 
-    @Test
-    @Order(7)
-    @DisplayName("Go back to the HAL page.")
-    void switchToApp3() {
-      assertNotSame(halPage, getCurrentWindow().page(), "Before switch");
-      switchToWindow(halWindow);
-      assertSame(halPage, getCurrentWindow().page(), "After switch");
-    }
 
     @Test
-    @Order(8)
+    @Order(5)
     @DisplayName("Click on TopBar < RIT Home button and validate navigation.")
     void navigateToRitHome() {
         halPage.clickOnTopNav(SimpleHoursAndLocationsPage.HALTopNav.RIT_HOME);
@@ -107,17 +90,42 @@ public class AppNavigationTest extends AbstractWebTest {
         if (onBrowser(FIREFOX)) {
             sleep(1);
         }
-
+        System.out.println(ritHomePage.getURL());
         assertTrue(ritHomePage.getURL().startsWith("https://www.rit.edu/"));
+        switchToWindow(halWindow);
     }
 
     @Test
-    @Order(9)
-    @DisplayName("Go back to the HAL page.")
-    void switchToApp4() {
-      assertNotSame(halPage, getCurrentWindow().page(), "Before switch");
-      switchToWindow(halWindow);
-      assertSame(halPage, getCurrentWindow().page(), "After switch");
+    @Order(6)
+    @DisplayName("Click on the navbar button provided")
+    void navigateToClassSearch() {
+        halPage.clickOnNavbar(SimpleHoursAndLocationsPage.HALSideNav.CLASS_SEARCH);
+        sleep(1);
+        System.out.println(halPage.getURL());
+        assertTrue(halPage.getURL().startsWith("https://tigercenter.rit.edu/tigerCenterApp/api/class-search"));
+
     }
+
+    @Test
+    @Order(7)
+    @DisplayName("Click on the navbar button provided")
+    void navigateToCourseCatalog() {
+        halPage.clickOnNavbar(SimpleHoursAndLocationsPage.HALSideNav.GPA_CALCULATOR);
+        sleep(1);
+        System.out.println(halPage.getURL());
+        assertTrue(halPage.getURL().startsWith("https://tigercenter.rit.edu/tigerCenterApp/api/gpa-calc"));
+    }
+
+    @Test
+    @Order(8)
+    @DisplayName("Click on the navbar button provided")
+    void navigateToGpaCalculator() {
+        halPage.clickOnNavbar(SimpleHoursAndLocationsPage.HALSideNav.HOURS_AND_LOCATIONS);
+        // there's a timing issue with Firefox (give it a second to render)
+        sleep(1);
+        System.out.println(halPage.getURL());
+        assertTrue(halPage.getURL().startsWith("https://tigercenter.rit.edu/tigerCenterApp/api/hours-and-locations"));
+    }
+
 
 }

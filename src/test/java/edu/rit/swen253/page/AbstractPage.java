@@ -79,4 +79,11 @@ public abstract class AbstractPage {
   public void waitUntilGone() {
     pageBody.waitUntilGone();
   }
+
+    /**
+   * Get the web page URL.
+   */
+  public String getURL() {
+    return SeleniumUtils.getDriver().getCurrentUrl();
+  }
 }
