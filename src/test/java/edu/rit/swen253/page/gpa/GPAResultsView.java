@@ -23,17 +23,17 @@ public class GPAResultsView {
      */
     public GPAResultsView(final DomElement viewContainer){
         this.viewContainer = viewContainer;
-        setElements(viewContainer);
+        setElements();
     }
 
     /**
      * Helper function to find the <span> tags
      * @param viewContainer
      */
-    private void setElements(DomElement viewContainer){
+    private void setElements(){
         //to be honest I don't know why I have to do this or why it works
-        //But something was going wrong without this
-        List<DomElement> spans = viewContainer.findChildrenBy(By.cssSelector("span.results"));
+        //But getText() wasn't pulling the updated value without this
+        List<DomElement> spans = this.viewContainer.findChildrenBy(By.cssSelector("span.results"));
         this.termGPA = spans.get(0);
         this.cumulativeGPA = spans.get(1);
     }
@@ -44,7 +44,7 @@ public class GPAResultsView {
      */
     public String getTerm(){
         this.termGPA.scrollIntoView();
-        setElements(viewContainer);
+        setElements();
         return this.termGPA.getText();
     }
 
@@ -53,7 +53,7 @@ public class GPAResultsView {
      * @return the string cumulative GPA
      */
     public String getCumulative(){
-        setElements(viewContainer);
+        setElements();
         this.termGPA.scrollIntoView();
         return this.cumulativeGPA.getText();
     }
