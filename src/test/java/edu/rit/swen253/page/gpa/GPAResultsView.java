@@ -43,7 +43,7 @@ public class GPAResultsView {
      * @return the string term GPA
      */
     public String getTerm(){
-        this.termGPA.scrollIntoView();
+        //this.termGPA.scrollIntoView();
         setElements();
         return this.termGPA.getText();
     }
@@ -54,7 +54,7 @@ public class GPAResultsView {
      */
     public String getCumulative(){
         setElements();
-        this.termGPA.scrollIntoView();
+        //this.termGPA.scrollIntoView();
         return this.cumulativeGPA.getText();
     }
 }
