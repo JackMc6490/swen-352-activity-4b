@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -172,6 +173,20 @@ public class GPACalculateTest extends AbstractWebTest{
         );
     }
 
+    @Test
+    @Order(15)
+    @DisplayName("Reset and validate")
+    void testingReset(){
+        this.calcPage.reset();
+        this.courses = this.calcPage.getCourses();
+        GPACourseView firstCourse = courses.get(0);
+        firstCourse.setGrade("A");;
+        this.calcPage.calculate();
+        assertAll("group assertions"
+        , () -> assertEquals("4.00",this.calcPage.getTermGPA())
+        , () -> assertEquals("4.00",this.calcPage.getCumulativeGPA())
+        );
+    }
 
 
 }
